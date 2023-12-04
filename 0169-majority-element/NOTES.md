@@ -1,0 +1,1 @@
+Boyer-Moore 과반수 투표 알고리즘(majority vote algorithm)
