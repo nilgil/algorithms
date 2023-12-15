@@ -1,15 +1,12 @@
 class Solution {
     public String destCity(List<List<String>> paths) {
-        Map<String, Integer> map = new HashMap<>();
+        Set<String> cities = new HashSet<>();
         for (List<String> path : paths) {
-            String departure = path.get(0);
-            String destination = path.get(1);
-            map.put(departure, map.getOrDefault(departure, 0) + 1);
-            map.put(destination, map.getOrDefault(destination, 0) - 1);
+            cities.add(path.get(0));
         }
-        for (String city : map.keySet()) {
-            if (map.get(city) < 0) {
-                return city;
+        for (List<String> path : paths) {
+            if (!cities.contains(path.get(1))) {
+                return path.get(1);
             }
         }
         return null;
