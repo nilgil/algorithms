@@ -14,7 +14,6 @@ public class Solution {
         if (head == null) {
             return false;
         }
-    
         Map<ListNode, Boolean> map = new HashMap<>();
         while (head.next != null) {
             if (map.containsKey(head.next)) {
