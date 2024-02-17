@@ -8,24 +8,21 @@ class Main {
 
     public static final int R = 31;
     public static final int M = 1234567891;
+    public static final int ALP_PREVIOUS_ASCII = 96;
+    public static List<Integer> rs = new ArrayList<>();
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int l = Integer.parseInt(br.readLine());
-        char[] chars = br.readLine().toCharArray();
-        List<Integer> nums = new ArrayList<>();
-        for (int i = 0; i < l; i++) {
-            nums.add(((int) chars[i]) - 96);
-        }
+        String alps = br.readLine();
 
-        int sum = 0;
-        for (int i = 0; i < chars.length; i++) {
-            Integer i1 = nums.get(i);
-            int pow = (int) Math.pow(R, i);
-            int num = i1 * pow;
-            sum += num;
+        long result = 0;
+        long pow = 1;
+        for (int i = 0; i < l; i++) {
+            int alpNum = alps.charAt(i) - ALP_PREVIOUS_ASCII;
+            result += (alpNum * pow);
+            pow = (pow * R) % M;
         }
-        
-        System.out.println(sum % M);
+        System.out.println(result % M);
     }
 }
