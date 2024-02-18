@@ -11,7 +11,10 @@ class Main {
         int a = Integer.parseInt(st.nextToken());
         int b = Integer.parseInt(st.nextToken());
         int v = Integer.parseInt(st.nextToken());
-        int result = (int) Math.ceil((v - a) * 1.0 / (a - b) + 1);
-        System.out.println(result);
+        int days = (v - a) / (a - b) + 1;
+        if ((v - a) % (a - b) != 0) {
+            days++;
+        }
+        System.out.println(days);
     }
 }
