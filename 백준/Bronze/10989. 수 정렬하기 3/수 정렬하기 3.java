@@ -6,19 +6,19 @@ import java.io.OutputStreamWriter;
 
 class Main {
 
+    public static final int NUMS_RANGE = 10000;
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         int n = Integer.parseInt(br.readLine());
-
-        int[] nums = new int[10000];
+        int[] nums = new int[NUMS_RANGE];
         for (int i = 0; i < n; i++) {
-            int num = Integer.parseInt(br.readLine());
-            nums[num - 1]++;
+            nums[Integer.parseInt(br.readLine()) - 1]++;
         }
         br.close();
 
-        for (int i = 0; i < nums.length; i++) {
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        for (int i = 0; i < NUMS_RANGE; i++) {
             for (int j = 0; j < nums[i]; j++) {
                 bw.write(i + 1 + "");
                 bw.newLine();
