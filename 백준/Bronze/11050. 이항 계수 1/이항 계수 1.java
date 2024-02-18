@@ -13,15 +13,17 @@ class Main {
 
         if (k < 0 || k > n) {
             System.out.println(0);
-        } else {
-            System.out.println(factorial(n) / factorial(k) / factorial(n - k));
+            return;
         }
-    }
 
-    private static int factorial(int num) {
-        if (num <= 1) {
-            return 1;
+        int nFac = 1;
+        for (int i = n; i > n - k; i--) {
+            nFac *= i;
         }
-        return num * factorial(num - 1);
+        int kFac = 1;
+        for (int i = k; i > 0; i--) {
+            kFac *= i;
+        }
+        System.out.println(nFac / kFac);
     }
 }
