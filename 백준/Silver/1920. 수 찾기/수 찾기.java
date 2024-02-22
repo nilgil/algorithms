@@ -1,8 +1,6 @@
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
@@ -27,17 +25,16 @@ class Main {
         st = new StringTokenizer(br.readLine());
         br.close();
 
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < m; i++) {
             int expect = Integer.parseInt(st.nextToken());
             if (hasElement(expect)) {
-                bw.write("1\n");
+                sb.append("1\n");
             } else {
-                bw.write("0\n");
+                sb.append("0\n");
             }
         }
-        bw.flush();
-        bw.close();
+        System.out.print(sb);
     }
 
     private static boolean hasElement(long expect) {
