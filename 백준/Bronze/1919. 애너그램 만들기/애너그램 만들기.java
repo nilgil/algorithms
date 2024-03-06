@@ -9,38 +9,22 @@ public class Main {
         String input1 = br.readLine();
         String input2 = br.readLine();
 
-        char[] chars1 = input1.toCharArray();
-        char[] chars2 = input2.toCharArray();
-
-        Arrays.sort(chars1);
-        Arrays.sort(chars2);
-
-        int count = 0;
-
-        int i = 0;
-        int j = 0;
-        while (i != chars1.length && j != chars2.length) {
-            char ch1 = chars1[i];
-            char ch2 = chars2[j];
-
-            if (ch1 == ch2) {
-                i++;
-                j++;
-                continue;
-            }
-
-            if (ch1 < ch2) {
-                i++;
-            } else {
-                j++;
-            }
-            count++;
+        int[] alps = new int[26];
+        for (int i = 0; i < input1.length(); i++) {
+            char ch = input1.charAt(i);
+            alps[ch - 'a']++;
         }
 
-        if (i == chars1.length) {
-            count += chars2.length - j;
-        } else {
-            count += chars1.length - i;
+        for (int i = 0; i < input2.length(); i++) {
+            char ch = input2.charAt(i);
+            alps[ch - 'a']--;
+        }
+
+        int count = 0;
+        for (int alp : alps) {
+            if (alp != 0) {
+                count = count + (alp < 0 ? -alp : alp);
+            }
         }
 
         System.out.println(count);
