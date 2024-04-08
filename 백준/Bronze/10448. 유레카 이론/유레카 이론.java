@@ -4,33 +4,51 @@ import java.io.InputStreamReader;
 
 public class Main {
 
-    public static final int CAN_MAKE_THOUSAND_N = 45;
-    static int[] triangles = new int[CAN_MAKE_THOUSAND_N];
+    static boolean[] isEurekaNumber = new boolean[1001];
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        for (int i = 1; i < triangles.length; i++) {
-            triangles[i] = i * (i + 1) / 2;
-        }
+        preProcess();
 
         int t = Integer.parseInt(br.readLine());
         while (t-- > 0) {
             int k = Integer.parseInt(br.readLine());
-            System.out.println(canSum(k) ? 1 : 0);
+            System.out.println(isEurekaNumber[k] ? 1 : 0);
         }
     }
 
-    private static boolean canSum(int k) {
-        for (int i = 1; i < CAN_MAKE_THOUSAND_N; i++) {
-            for (int j = 1; j < CAN_MAKE_THOUSAND_N; j++) {
-                for (int l = 1; l < CAN_MAKE_THOUSAND_N; l++) {
-                    if (triangles[i] + triangles[j] + triangles[l] == k) {
-                        return true;
-                    }
+    private static void preProcess() {
+        int triangleNumberCount = 0;
+        int[] triangleNumbers = new int[50];
+        for (int i = 1; ; i++) {
+            int triangleNumber = i * (i + 1) / 2;
+            if (1000 <= triangleNumber) {
+                break;
+            }
+            triangleNumbers[triangleNumberCount++] = triangleNumber;
+        }
+
+        boolean[] isSumOfTriangleNumber = new boolean[1001];
+        for (int i = 0; i < triangleNumberCount; i++) {
+            for (int j = 0; j < triangleNumberCount; j++) {
+                int sum = triangleNumbers[i] + triangleNumbers[j];
+                if (sum < 1000) {
+                    isSumOfTriangleNumber[sum] = true;
                 }
             }
         }
-        return false;
+
+        for (int i = 1; i < 1000; i++) {
+            if (!isSumOfTriangleNumber[i]) {
+                continue;
+            }
+            for (int j = 0; j < triangleNumberCount; j++) {
+                int sum = i + triangleNumbers[j];
+                if (sum <= 1000) {
+                    isEurekaNumber[sum] = true;
+                }
+            }
+        }
     }
 }
