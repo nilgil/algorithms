@@ -17,8 +17,8 @@ public class Main {
             int w = Integer.parseInt(st.nextToken());
             int n = Integer.parseInt(st.nextToken());
 
-            int floor = n % h == 0 ? h : n % h;
-            int ho = n % h == 0 ? n / h : n / h + 1;
+            int floor = (n - 1) % h + 1;
+            int ho = (n - 1) / h + 1;
             
             sb.append(floor * 100 + ho).append('\n');
         }
