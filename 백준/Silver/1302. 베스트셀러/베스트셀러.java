@@ -11,15 +11,21 @@ public class Main {
         int n = Integer.parseInt(br.readLine());
 
         Map<String, Integer> sell = new HashMap<>();
+        String[] sort = new String[1001];
         for (int i = 0; i < n; i++) {
             String book = br.readLine();
-            sell.put(book, sell.getOrDefault(book, 0) + 1);
+            int count = sell.getOrDefault(book, 0) + 1;
+            sell.put(book, count);
+            if (sort[count] == null || 0 < sort[count].compareTo(book)) {
+                sort[count] = book;
+            }
         }
 
-        sell.entrySet().stream()
-            .min((o1, o2) -> o2.getValue().compareTo(o1.getValue()) == 0 ?
-                o1.getKey().compareTo(o2.getKey()) :
-                o2.getValue().compareTo(o1.getValue()))
-            .ifPresent(entry -> System.out.println(entry.getKey()));
+        for (int i = 1000; i >= 0; i--) {
+            if (sort[i] != null) {
+                System.out.println(sort[i]);
+                break;
+            }
+        }
     }
 }
