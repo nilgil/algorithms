@@ -8,22 +8,22 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
-
         StringTokenizer st = new StringTokenizer(br.readLine());
         int n = Integer.parseInt(st.nextToken());
         int m = Integer.parseInt(st.nextToken());
 
-        int[] nums = new int[n + 1];
         st = new StringTokenizer(br.readLine());
+        int[] sums = new int[n + 1];
         for (int i = 1; i <= n; i++) {
-            nums[i] = nums[i - 1] + Integer.parseInt(st.nextToken());
+            int num = Integer.parseInt(st.nextToken());
+            sums[i] = sums[i - 1] + num;
         }
 
         while (m-- > 0) {
             st = new StringTokenizer(br.readLine());
             int i = Integer.parseInt(st.nextToken());
             int j = Integer.parseInt(st.nextToken());
-            sb.append(nums[j] - nums[i - 1]).append('\n');
+            sb.append(sums[j] - sums[i - 1]).append('\n');
         }
 
         System.out.println(sb);
