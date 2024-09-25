@@ -1,5 +1,8 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.ArrayDeque;
+import java.util.Queue;
+import java.util.Stack;
 import java.util.StringTokenizer;
 
 /**
@@ -31,8 +34,10 @@ public class Main {
             graph[to][from] = true;
         }
 
-        recursiveDfs(1);
-
+//        recursiveDfs(1);
+//        stackDfs(1);
+        queueBfs(1);
+        
         System.out.println(count);
     }
 
@@ -42,6 +47,38 @@ public class Main {
             if (graph[node][i] && !visited[i]) {
                 count++;
                 recursiveDfs(i);
+            }
+        }
+    }
+
+    static void stackDfs(int node) {
+        Stack<Integer> stack = new Stack<>();
+        stack.push(node);
+        visited[node] = true;
+        while (!stack.isEmpty()) {
+            Integer now = stack.pop();
+            for (int i = 1; i <= n; i++) {
+                if (graph[now][i] && !visited[i]) {
+                    stack.push(i);
+                    visited[i] = true;
+                    count++;
+                }
+            }
+        }
+    }
+
+    static void queueBfs(int node) {
+        Queue<Integer> stack = new ArrayDeque<>();
+        stack.offer(node);
+        visited[node] = true;
+        while (!stack.isEmpty()) {
+            Integer now = stack.poll();
+            for (int i = 1; i <= n; i++) {
+                if (graph[now][i] && !visited[i]) {
+                    stack.offer(i);
+                    visited[i] = true;
+                    count++;
+                }
             }
         }
     }
