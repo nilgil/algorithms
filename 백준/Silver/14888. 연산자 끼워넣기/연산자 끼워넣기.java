@@ -1,8 +1,6 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -16,7 +14,6 @@ public class Main {
         for (int i = 0; i < n; i++) {
             nums[i] = Integer.parseInt(st.nextToken());
         }
-        calculated[0] = nums[0];
         st = new StringTokenizer(br.readLine());
         for (int i = 0; i < operations.length; i++) {
             operations[i] = Integer.parseInt(st.nextToken());
@@ -24,28 +21,21 @@ public class Main {
     }
 
     static int n;
-    static int[] nums;
-    static int[] calculated;
+    static int max = Integer.MIN_VALUE;
+    static int min = Integer.MAX_VALUE;
+    static int[] nums, calculated;
     static int[] operations = new int[4];
-    static List<Integer> results = new ArrayList<>();
 
     private static void recursive(int depth) {
         if (depth == n) {
-            results.add(calculated[n - 1]);
+            max = Math.max(max, calculated[n - 1]);
+            min = Math.min(min, calculated[n - 1]);
         } else {
             for (int i = 0; i < 4; i++) {
-                if (operations[i] <= 0) {
+                if (hasOperator(i)) {
                     continue;
                 }
-                if (i == 0) {
-                    calculated[depth] = calculated[depth - 1] + nums[depth];
-                } else if (i == 1) {
-                    calculated[depth] = calculated[depth - 1] - nums[depth];
-                } else if (i == 2) {
-                    calculated[depth] = calculated[depth - 1] * nums[depth];
-                } else {
-                    calculated[depth] = calculated[depth - 1] / nums[depth];
-                }
+                calculate(depth, i);
                 operations[i]--;
 
                 recursive(depth + 1);
@@ -56,13 +46,29 @@ public class Main {
         }
     }
 
+    private static boolean hasOperator(int i) {
+        return operations[i] <= 0;
+    }
+
+    private static void calculate(int depth, int i) {
+        if (i == 0) {
+            calculated[depth] = calculated[depth - 1] + nums[depth];
+        } else if (i == 1) {
+            calculated[depth] = calculated[depth - 1] - nums[depth];
+        } else if (i == 2) {
+            calculated[depth] = calculated[depth - 1] * nums[depth];
+        } else {
+            calculated[depth] = calculated[depth - 1] / nums[depth];
+        }
+    }
+
     public static void main(String[] args) throws Exception {
         input();
 
+        calculated[0] = nums[0];
         recursive(1);
 
-        results.sort(Integer::compareTo);
-        System.out.println(results.get(results.size() - 1));
-        System.out.println(results.get(0));
+        System.out.println(max);
+        System.out.println(min);
     }
 }
