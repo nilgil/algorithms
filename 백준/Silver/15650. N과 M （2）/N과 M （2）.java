@@ -12,12 +12,10 @@ public class Main {
         n = Integer.parseInt(st.nextToken());
         m = Integer.parseInt(st.nextToken());
         selected = new int[m + 1];
-        visited = new boolean[n + 1];
     }
 
     static int n, m;
     static int[] selected;
-    static boolean[] visited;
 
     private static void recursive(int depth) {
         if (depth == m + 1) {
@@ -26,19 +24,10 @@ public class Main {
             }
             sb.append('\n');
         } else {
-            int start = selected[depth - 1];
-            if (start == 0) {
-                start = 1;
-            }
-            for (int i = start; i <= n; i++) {
-                if (visited[i]) {
-                    continue;
-                }
+            for (int i = selected[depth - 1] + 1; i <= n; i++) {
                 selected[depth] = i;
-                visited[i] = true;
                 recursive(depth + 1);
                 selected[depth] = 0;
-                visited[i] = false;
             }
         }
     }
