@@ -9,7 +9,6 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         n = Integer.parseInt(br.readLine());
         nums = new int[n];
-        calculated = new int[n];
         StringTokenizer st = new StringTokenizer(br.readLine());
         for (int i = 0; i < n; i++) {
             nums[i] = Integer.parseInt(st.nextToken());
@@ -23,50 +22,40 @@ public class Main {
     static int n;
     static int max = Integer.MIN_VALUE;
     static int min = Integer.MAX_VALUE;
-    static int[] nums, calculated;
+    static int[] nums;
     static int[] operations = new int[4];
 
-    private static void recursive(int depth) {
+    private static void recursive(int depth, int result) {
         if (depth == n) {
-            max = Math.max(max, calculated[n - 1]);
-            min = Math.min(min, calculated[n - 1]);
+            max = Math.max(max, result);
+            min = Math.min(min, result);
         } else {
             for (int i = 0; i < 4; i++) {
-                if (hasOperator(i)) {
-                    continue;
+                if (1 <= operations[i]) {
+                    operations[i]--;
+                    recursive(depth + 1, calculate(result, nums[depth], i));
+                    operations[i]++;
                 }
-                calculate(depth, i);
-                operations[i]--;
-
-                recursive(depth + 1);
-
-                calculated[depth] = 0;
-                operations[i]++;
             }
         }
     }
 
-    private static boolean hasOperator(int i) {
-        return operations[i] <= 0;
-    }
-
-    private static void calculate(int depth, int i) {
-        if (i == 0) {
-            calculated[depth] = calculated[depth - 1] + nums[depth];
-        } else if (i == 1) {
-            calculated[depth] = calculated[depth - 1] - nums[depth];
-        } else if (i == 2) {
-            calculated[depth] = calculated[depth - 1] * nums[depth];
+    private static int calculate(int operand1, int operand2, int operation) {
+        if (operation == 0) {
+            return operand1 + operand2;
+        } else if (operation == 1) {
+            return operand1 - operand2;
+        } else if (operation == 2) {
+            return operand1 * operand2;
         } else {
-            calculated[depth] = calculated[depth - 1] / nums[depth];
+            return operand1 / operand2;
         }
     }
 
     public static void main(String[] args) throws Exception {
         input();
 
-        calculated[0] = nums[0];
-        recursive(1);
+        recursive(1, nums[0]);
 
         System.out.println(max);
         System.out.println(min);
