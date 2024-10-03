@@ -7,8 +7,6 @@ import java.util.StringTokenizer;
 
 public class Main {
 
-    static StringBuilder sb = new StringBuilder();
-
     private static void input() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         n = Integer.parseInt(br.readLine());
@@ -29,7 +27,6 @@ public class Main {
     static int[] nums;
     static int[] calculated;
     static int[] operations = new int[4];
-    static int[] used = new int[4];
     static List<Integer> results = new ArrayList<>();
 
     private static void recursive(int depth) {
@@ -37,7 +34,7 @@ public class Main {
             results.add(calculated[n - 1]);
         } else {
             for (int i = 0; i < 4; i++) {
-                if (operations[i] <= used[i]) {
+                if (operations[i] <= 0) {
                     continue;
                 }
                 if (i == 0) {
@@ -49,12 +46,12 @@ public class Main {
                 } else {
                     calculated[depth] = calculated[depth - 1] / nums[depth];
                 }
-                used[i]++;
+                operations[i]--;
 
                 recursive(depth + 1);
 
                 calculated[depth] = 0;
-                used[i]--;
+                operations[i]++;
             }
         }
     }
