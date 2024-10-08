@@ -8,28 +8,29 @@ public class Main {
 
     private static void input() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
         n = Integer.parseInt(br.readLine());
-        counts = new int[n];
+        limits = new int[n];
+
         StringTokenizer st = new StringTokenizer(br.readLine());
         for (int i = 0; i < n; i++) {
-            counts[i] = Integer.parseInt(st.nextToken());
+            limits[i] = Integer.parseInt(st.nextToken());
         }
     }
 
     static int n;
-    static int[] counts;
+    static int[] limits;
 
     public static void main(String[] args) throws Exception {
         input();
 
-        Arrays.sort(counts);
+        Arrays.sort(limits);
 
-        int team = 0;
-        for (int i = 0; i < n; i++) {
-            int now = counts[i];
-            i = i + now - 1;
-            team++;
+        int count = 0;
+        for (int i = 0; i < n; i += limits[i]) {
+            count++;
         }
-        System.out.println(team);
+
+        System.out.println(count);
     }
 }
