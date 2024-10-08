@@ -38,7 +38,6 @@ public class Main {
             sum += topScores[n - i];
         }
 
-
         System.out.println(Math.round(sum * 10) / 10.0);
     }
 }
