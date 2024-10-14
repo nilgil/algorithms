@@ -5,8 +5,6 @@ import java.util.StringTokenizer;
 
 public class Main {
 
-	static StringBuilder sb = new StringBuilder();
-
 	private static void input() throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		n = Integer.parseInt(br.readLine());
@@ -38,7 +36,7 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 		input();
 
-		for (currentHeight = 0; currentHeight <= maxHeight; currentHeight++) {
+		for (currentHeight = minHeight - 1; currentHeight <= maxHeight; currentHeight++) {
 			currentCount = 0;
 			visited = new boolean[n][n];
 			for (int i = 0; i < n; i++) {
