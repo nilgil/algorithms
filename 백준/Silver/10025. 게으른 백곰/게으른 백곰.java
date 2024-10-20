@@ -5,19 +5,16 @@ import java.util.StringTokenizer;
 
 public class Main {
 
-	static int n, k;
+	static int n, k, windowSize;
 	static int[] ices = new int[1_000_001];
-	static int minIdx = Integer.MAX_VALUE;
-	static int maxIdx = Integer.MIN_VALUE;
 	static int maxSum = Integer.MIN_VALUE;
 
 	public static void main(String[] args) throws Exception {
 		input();
 		int currentSum = 0;
-		for (int i = minIdx; i <= maxIdx; i++) {
-			int window = k * 2 + 1;
-			if (window <= i) {
-				currentSum -= ices[i - window];
+		for (int i = 0; i <= 1_000_000; i++) {
+			if (windowSize <= i) {
+				currentSum -= ices[i - windowSize];
 			}
 			currentSum += ices[i];
 			maxSum = Math.max(maxSum, currentSum);
@@ -30,13 +27,13 @@ public class Main {
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		n = Integer.parseInt(st.nextToken());
 		k = Integer.parseInt(st.nextToken());
+		windowSize = k * 2 + 1;
+
 		for (int i = 0; i < n; i++) {
 			st = new StringTokenizer(br.readLine());
 			int g = Integer.parseInt(st.nextToken());
 			int x = Integer.parseInt(st.nextToken());
 			ices[x] = g;
-			maxIdx = Math.max(maxIdx, x);
-			minIdx = Math.min(minIdx, x);
 		}
 	}
 }
