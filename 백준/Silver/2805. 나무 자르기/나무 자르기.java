@@ -1,41 +1,49 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
 
+	static int n, m;
+	static long[] trees;
 
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	public static void main(String[] args) throws Exception {
+		input();
 
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        int n = Integer.parseInt(st.nextToken());
-        int m = Integer.parseInt(st.nextToken());
+		long l = 0;
+		long r = 1_000_000_000;
+		long result = -1;
+		while (l <= r) {
+			long c = (l + r) / 2;
+			long sum = 0;
+			for (int i = 0; i < n; i++) {
+				long height = trees[i];
+				if (c < height) {
+					sum += height - c;
+				}
+			}
+			if (m <= sum) {
+				result = c;
+				l = c + 1;
+			} else {
+				r = c - 1;
+			}
+		}
+		System.out.println(result);
+	}
 
-        int min = 0, max = 0;
+	private static void input() throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		n = Integer.parseInt(st.nextToken());
+		m = Integer.parseInt(st.nextToken());
+		trees = new long[n];
 
-        st = new StringTokenizer(br.readLine());
-        int[] trees = new int[n];
-        for (int i = 0; i < n; i++) {
-            trees[i] = Integer.parseInt(st.nextToken());
-            max = Math.max(max, trees[i]);
-        }
-
-        while (min < max) {
-            int mid = (min + max) / 2;
-            long sum = 0;
-            for (int tree : trees) {
-                if (0 < tree - mid) {
-                    sum += tree - mid;
-                }
-            }
-            if (sum < m) {
-                max = mid;
-            } else {
-                min = mid + 1;
-            }
-        }
-        System.out.println(min - 1);
-    }
+		st = new StringTokenizer(br.readLine());
+		for (int i = 0; i < n; i++) {
+			trees[i] = Long.parseLong(st.nextToken());
+		}
+	}
 }
