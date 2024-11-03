@@ -1,2 +1,6 @@
+realtest
+
+build
 .idea
 *.iml
+.gradle
