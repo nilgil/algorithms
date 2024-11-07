@@ -8,14 +8,17 @@ public class Main {
 	static StringTokenizer st;
 	static StringBuilder sb = new StringBuilder();
 
-	static int n;
+	static int n, m;
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws IOException {
 		input();
 
 	}
 
 	private static void input() throws IOException {
+		st = new StringTokenizer(br.readLine());
+		n = Integer.parseInt(st.nextToken());
+		m = Integer.parseInt(st.nextToken());
 
 	}
 }
