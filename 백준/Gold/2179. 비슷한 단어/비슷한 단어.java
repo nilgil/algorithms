@@ -29,22 +29,15 @@ public class Main {
 		for (int i = 0; i < n; i++) {
 			for (int j = i + 1; j < n; j++) {
 				int count = samePrefixCount(sorted.get(i), sorted.get(j));
-				if (count < maxCount) {
-					break;
-				}
 				if (maxCount < count) {
 					maxCount = count;
-					String s1 = sorted.get(i);
-					String s2 = sorted.get(j);
-					Integer idx1 = words.get(s1);
-					Integer idx2 = words.get(s2);
+					Integer idx1 = words.get(sorted.get(i));
+					Integer idx2 = words.get(sorted.get(j));
 					s = Math.min(idx1, idx2);
 					t = Math.max(idx1, idx2);
-				} else {
-					String s1 = sorted.get(i);
-					String s2 = sorted.get(j);
-					Integer idx1 = words.get(s1);
-					Integer idx2 = words.get(s2);
+				} else if (maxCount == count) {
+					Integer idx1 = words.get(sorted.get(i));
+					Integer idx2 = words.get(sorted.get(j));
 					int min = Math.min(idx1, idx2);
 					int max = Math.max(idx1, idx2);
 					if (min < s) {
@@ -53,6 +46,8 @@ public class Main {
 					} else if (min == s && max < t) {
 						t = max;
 					}
+				} else {
+					break;
 				}
 			}
 		}
