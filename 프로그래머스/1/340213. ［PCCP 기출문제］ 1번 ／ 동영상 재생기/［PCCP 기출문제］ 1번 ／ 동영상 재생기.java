@@ -1,13 +1,6 @@
 class Solution {
     
     public String solution(String video_len, String pos, String op_start, String op_end, String[] commands) {
-        System.out.println(video_len);
-        System.out.println(pos);
-        System.out.println(op_start);
-        System.out.println(op_end);
-        for(String command: commands) {
-            System.out.println(command);
-        }
         Video video = new Video(new Time(video_len), new Time(pos), new Time(op_start), new Time(op_end));
         video.skipOp();
         for (String command : commands) {
