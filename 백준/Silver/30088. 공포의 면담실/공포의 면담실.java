@@ -21,8 +21,8 @@ public class Main {
 			}
 			queue.offer(sum);
 		}
-		int sum = 0;
-		int result = 0;
+		long sum = 0;
+		long result = 0;
 		while (!queue.isEmpty()) {
 			sum += queue.poll();
 			result += sum;
